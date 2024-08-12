@@ -6,13 +6,14 @@ require "services/google-calendar.php";
 class EventListController
 {
     protected $service;
+    protected $client;
 
     public function __construct(GoogleClient $client)
     {
+        $this->client = $client;
         $googleServiceCalendar = new Google_Service_Calendar($client->getInstance());
         $this->service = new GoogleCalendar($googleServiceCalendar);
     }
-
     public function getIndex()
     {
         $results = $this->service->getEvents();

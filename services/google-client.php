@@ -8,11 +8,30 @@ class GoogleClient{
         $this->client->setAuthConfig(__DIR__.'/../googleAuth/credentials.json');
         $this->client->setRedirectUri($config['redirectUrl']);
         $this->client->addScope(Google_Service_Calendar::CALENDAR);
+
     }
 
     function getInstance()
     {
         return $this->client;
+    }
+
+    function initialize()
+    {
+        if (!isset($_SESSION['access_token'])) {
+            $authUrl = $this->getAuthUrl();
+            include "templates/login.php";
+            exit();
+        }
+        try {
+            $token = $_SESSION['access_token'];
+            $this->client->setAccessToken($token);
+            $userInfo = $this->getClientId($token);
+        } catch (Exception $e) {
+            $authUrl = $this->getAuthUrl();
+            include "templates/login.php";
+            exit();
+        }
     }
     function getAuthUrl()
     {
@@ -30,5 +49,10 @@ class GoogleClient{
     function getClientId($accessToken)
     {
         return $this->client->getClientId();
+    }
+
+    function checkSessionToken()
+    {
+
     }
 }
