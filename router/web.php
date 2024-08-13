@@ -8,7 +8,7 @@ class Router
     private $config;
     private $controller;
     private $basePath = '/intuji-assignment';
-    const ROUTER_LIST = ['/index.php', '/events.php', '/create.php', '/delete.php'];
+    const ROUTER_LIST = ['/index.php', '/events.php', '/create.php', '/delete.php', '/signout.php'];
 
     public function __construct($config)
     {
@@ -47,7 +47,12 @@ class Router
                 }
                 break;
             case "/delete.php":
-                $this->controller->deleteEvent();
+                $id = $_GET['id'] ?? null;
+                $this->controller->deleteEvent($id);
+                break;
+            case "/signout.php":
+                session_destroy();
+                header('Location: index.php');
                 break;
             default:
                 echo "Not Found";

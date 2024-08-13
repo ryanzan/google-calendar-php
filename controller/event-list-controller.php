@@ -31,7 +31,6 @@ class EventListController
 
     public function storeEvent($data)
     {
-        $_SESSION['errors'] = [];
         $errors = $this->validator->validate($data);
         if (count($errors) > 0) {
             $_SESSION['errors'] = $errors;
@@ -42,16 +41,27 @@ class EventListController
         $event = $this->service->createEvent($data);
         if ($event) {
             $_SESSION['success'] = 'Event created successfully!';
-            header('Location: index.php');
         } else {
-            $_SESSION['eventCreationError'] = 'Event creation failed!';
-            include "templates/create-event.php";
+            $_SESSION['generalError'] = 'Event creation failed!';
         }
+        header('Location: index.php');
     }
 
-    public function deleteEvent()
+    public function deleteEvent($id)
     {
-
+        if (!$id){
+            $_SESSION['generalError'] = 'Event id is required to delete the event!';
+            header('Location: index.php');
+            exit();
+        }
+        $isDeleted = $this->service->deleteEvent($id);
+        if ($isDeleted){
+            $_SESSION['success'] = 'Event deleted successfully!';
+        }
+        else{
+            $_SESSION['generalError'] = 'Event deletion failed!';
+        }
+        header('Location: index.php');
     }
 }
 
