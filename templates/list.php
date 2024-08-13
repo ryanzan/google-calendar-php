@@ -1,13 +1,23 @@
+<?php
+$success = isset($_SESSION['success']) ? $_SESSION['success'] : null;
+unset($_SESSION['success']);
+?>
 <html lang="en">
 <head>
     <title>Events</title>
-    <?php include "layout/header.php" ?>;
+    <?php include "layout/header.php" ?>
 </head>
 <body>
-<div class="container">
+<div class="container mt-5">
+    <?php if ($success): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong> <?= $success ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="m-0" style="color: #28a745; font-weight: 600;">Upcoming Events</h3>
-        <a href="#" class="btn btn-success btn-md">+ Add Event</a>
+        <a href="create.php" class="btn btn-success btn-md">+ Add Event</a>
     </div>
     <div class="row table-responsive">
         <table class="table  table-striped table-bordered">
