@@ -1,11 +1,13 @@
 <?php
-class GoogleClient{
+
+class GoogleClient
+{
     protected $client;
 
     function __construct(Google_Client $client, $config)
     {
         $this->client = $client;
-        $this->client->setAuthConfig(__DIR__.'/../googleAuth/credentials.json');
+        $this->client->setAuthConfig(__DIR__ . '/../googleAuth/credentials.json');
         $this->client->setRedirectUri($config['redirectUrl']);
         $this->client->addScope(Google_Service_Calendar::CALENDAR);
 
@@ -23,36 +25,32 @@ class GoogleClient{
             include "templates/login.php";
             exit();
         }
-        try {
-            $token = $_SESSION['access_token'];
-            $this->client->setAccessToken($token);
-            $userInfo = $this->getClientId($token);
-        } catch (Exception $e) {
+        $token = $_SESSION['access_token'];
+        $this->client->setAccessToken($token);
+        if ($this->client->isAccessTokenExpired()) {
             $authUrl = $this->getAuthUrl();
             include "templates/login.php";
             exit();
         }
     }
+
     function getAuthUrl()
     {
         return $this->client->createAuthUrl();
     }
 
-    function fetchAccessToken($authCode){
+    function fetchAccessToken($authCode)
+    {
         return $this->client->fetchAccessTokenWithAuthCode($authCode);
     }
 
-    function setAccessToken($accessToken){
+    function setAccessToken($accessToken)
+    {
         $this->client->setAccessToken($accessToken);
     }
 
     function getClientId($accessToken)
     {
         return $this->client->getClientId();
-    }
-
-    function checkSessionToken()
-    {
-
     }
 }
