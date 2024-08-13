@@ -48,11 +48,14 @@ class GoogleCalendar
         }
         return $createdEvent;
     }
-    public function updateEvent(){
-
-    }
-
-    public function deleteEvent(){
-
+    public function deleteEvent($id){
+        $calendarId = 'primary';
+        try {
+            $this->calendar->events->delete($calendarId, $id);
+        }catch (Exception $e){
+            //Log it somewhere
+            return false;
+        }
+        return true;
     }
 }

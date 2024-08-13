@@ -1,10 +1,10 @@
 <?php
-$errors = isset($_SESSION['errors']) ? $_SESSION['errors'] : [];
-$formValues = isset($_SESSION['form_values']) ? $_SESSION['form_values'] : [];
-$eventCreationError = isset($_SESSION['eventCreationError']) ? $_SESSION['eventCreationError'] : null;
+$errors = $_SESSION['errors'] ?? [];
+$formValues = $_SESSION['form_values'] ?? [];
+$eventCreationError = $_SESSION['generalError'] ?? null;
 unset($_SESSION['errors']);
 unset($_SESSION['form_values']);
-unset($_SESSION['eventCreationError']);
+unset($_SESSION['generalError']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
