@@ -1,7 +1,7 @@
 <?php
 require 'vendor/autoload.php';
 require 'services/google-client.php';
-$config = require 'config.php';
+$config = require 'config/app.php';
 
 session_start();
 $client = new GoogleClient(new Google_Client(), $config);
