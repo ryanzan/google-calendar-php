@@ -7,8 +7,8 @@ class GoogleClient
     function __construct(Google_Client $client, $config)
     {
         $this->client = $client;
-        $this->client->setAuthConfig(__DIR__ . '/../googleAuth/credentials.json');
-        $this->client->setRedirectUri($config['redirectUrl']);
+        $this->client->setAuthConfig(__DIR__ . '/../config/credentials.json');
+        $this->client->setRedirectUri(trim($config['redirectUrl']));
         $this->client->addScope(Google_Service_Calendar::CALENDAR);
 
     }

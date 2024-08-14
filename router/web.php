@@ -1,18 +1,19 @@
 <?php
 require "vendor/autoload.php";
 require "services/google-client.php";
-require "controller/event-list-controller.php";
+require "controller/event-controller.php";
 
 class Router
 {
     private $config;
     private $controller;
-    private $basePath = '/intuji-assignment';
+    private $basePath;
     const ROUTER_LIST = ['/index.php', '/events.php', '/create.php', '/delete.php', '/signout.php'];
 
     public function __construct($config)
     {
         $this->config = $config;
+        $this->basePath = $this->config['basePath'];
         $this->initialize();
     }
 
@@ -27,7 +28,7 @@ class Router
 
         $client = new GoogleClient(new Google_Client(), $this->config);
         $client->initialize();
-        $this->controller = new EventListController($client);
+        $this->controller = new EventController($client);
     }
 
     public function run()

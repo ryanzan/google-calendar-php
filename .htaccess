@@ -1,6 +1,5 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /intuji-assignment/
 
     # Redirect all requests to index.php
     RewriteCond %{REQUEST_FILENAME} !-f

@@ -4,7 +4,7 @@ require "vendor/autoload.php";
 require "services/google-calendar.php";
 require "validator/event-store-validation.php";
 
-class EventListController
+class EventController
 {
     protected $service;
     protected $client;
