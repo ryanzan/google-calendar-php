@@ -2,23 +2,21 @@
 
 class GoogleClient
 {
-    protected $client;
 
-    function __construct(Google_Client $client, $config)
+    function __construct(protected Google_Client $client, array $config)
     {
-        $this->client = $client;
         $this->client->setAuthConfig(__DIR__ . '/../config/credentials.json');
         $this->client->setRedirectUri(trim($config['redirectUrl']));
         $this->client->addScope(Google_Service_Calendar::CALENDAR);
 
     }
 
-    function getInstance()
+    function getInstance(): Google_Client
     {
         return $this->client;
     }
 
-    function initialize()
+    function initialize(): void
     {
         if (!isset($_SESSION['access_token'])) {
             $authUrl = $this->getAuthUrl();
@@ -34,22 +32,22 @@ class GoogleClient
         }
     }
 
-    function getAuthUrl()
+    function getAuthUrl(): string
     {
         return $this->client->createAuthUrl();
     }
 
-    function fetchAccessToken($authCode)
+    function fetchAccessToken($authCode): array
     {
         return $this->client->fetchAccessTokenWithAuthCode($authCode);
     }
 
-    function setAccessToken($accessToken)
+    function setAccessToken($accessToken): void
     {
         $this->client->setAccessToken($accessToken);
     }
 
-    function getClientId($accessToken)
+    function getClientId($accessToken): string
     {
         return $this->client->getClientId();
     }

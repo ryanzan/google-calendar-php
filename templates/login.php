@@ -9,7 +9,7 @@
         <div class="col d-flex
                         align-items-center
                         justify-content-center mt-5">
-            <a class="btn btn-outline-primary" href="<?= $authUrl ?>">
+            <a class="btn btn-outline-primary" href="<?= $authUrl ?? '' ?>">
                 Sign up with Google
             </a>
         </div>

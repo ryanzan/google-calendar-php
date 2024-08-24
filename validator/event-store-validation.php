@@ -2,11 +2,9 @@
 
 class EventStoreValidation
 {
-    public function __construct()
-    {
-    }
+    public function __construct(){}
 
-    public function validate($event)
+    public function validate($event): array
     {
         $eventName = trim($event['eventName']);
         $eventDate = $event['eventDate'];

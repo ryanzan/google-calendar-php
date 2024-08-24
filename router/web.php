@@ -5,19 +5,17 @@ require "controller/event-controller.php";
 
 class Router
 {
-    private $config;
     private $controller;
     private $basePath;
     const ROUTER_LIST = ['/index.php', '/events.php', '/create.php', '/delete.php', '/signout.php'];
 
-    public function __construct($config)
+    public function __construct(private array $config)
     {
-        $this->config = $config;
         $this->basePath = $this->config['basePath'];
         $this->initialize();
     }
 
-    private function initialize()
+    private function initialize() : void
     {
         session_start();
         $path = $this->getPath();
@@ -31,7 +29,7 @@ class Router
         $this->controller = new EventController($client);
     }
 
-    public function run()
+    public function run(): void
     {
         $path = $this->getPath();
         $method = $_SERVER['REQUEST_METHOD'];
@@ -61,10 +59,10 @@ class Router
         }
     }
 
-    private function getPath()
+    private function getPath() : string
     {
         $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        if (strpos($path, $this->basePath) === 0) {
+        if (str_starts_with($path, $this->basePath)) {
             $path = substr($path, strlen($this->basePath));
         }
         return $path;
