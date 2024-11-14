@@ -21,7 +21,7 @@ A simple application to manage Google Calendar events. This app allows you to li
 
 1. Place the project in the `htdocs` directory.
 2. Access the app via your browser at:  
-   `http://localhost/intuji-assignment/index.php`
+   `http://localhost/google-calendar-php/index.php`
 
 ## Running with Docker
 
