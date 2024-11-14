@@ -1,16 +1,13 @@
 <?php
 class GoogleCalendar
 {
-    protected $calendar;
-    public function __construct(Google_Service_Calendar $calendar){
-        $this->calendar = $calendar;
-    }
+    public function __construct(protected Google_Service_Calendar $calendar){}
 
-    public function getInstance(){
+    public function getInstance(): Google_Service_Calendar{
         return $this->calendar;
     }
 
-    public function getEvents(){
+    public function getEvents(): Google\Service\Calendar\Events{
         $calendarId = 'primary';
         $optParams = array(
             'maxResults' => 10,
@@ -22,7 +19,8 @@ class GoogleCalendar
         return $this->calendar->events->listEvents($calendarId, $optParams);
     }
 
-    public function createEvent($data){
+    public function createEvent(array $data): ?\Google\Service\Calendar\Event
+    {
         $attendeesArray = array_map('trim', explode(',', $data['attendees']));
         $event = new Google_Service_Calendar_Event([
             'summary' => $data['eventName'],
@@ -48,7 +46,7 @@ class GoogleCalendar
         }
         return $createdEvent;
     }
-    public function deleteEvent($id){
+    public function deleteEvent(string $id): bool{
         $calendarId = 'primary';
         try {
             $this->calendar->events->delete($calendarId, $id);
