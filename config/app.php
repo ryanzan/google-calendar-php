@@ -6,7 +6,7 @@
 //)
 //To run from local xampp
 return array(
-    "redirectUrl" => "http://localhost/intuji-assignment/callback.php",
-    "basePath" => "/intuji-assignment"
+    "redirectUrl" => "http://localhost/google-calendar-php/callback.php",
+    "basePath" => "/google-calendar-php"
 )
 ?>
